@@ -45,7 +45,13 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "customize-cra": "^1.0.0",
+    "eslint-import-resolver-babel-module": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "html-react-parser": "^1.2.4",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react-app-rewired": "^2.1.8"
   }
 }

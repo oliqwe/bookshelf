@@ -1,18 +1,20 @@
 import React from 'react'
+import { array, func } from 'prop-types'
+
 import { Formik, Form } from 'formik'
 import { Button, Divider, Grid, Typography } from '@material-ui/core'
 
 import { shiftValidationSchema } from './shelf-form.utils'
-import ShelfNameFiled from '../../../shared/components/FormikFields/ShelfName'
-import FormikAutocomplete from '../../../shared/components/FormikFields/FormikAutocomplete'
-import { useBookShelf } from '../../../shared/context/book-shelf-context'
+import ShelfNameFiled from 'shared/components/FormikFields/ShelfName'
+
+import AutoComplete from 'shared/components/FormikFields/AutoComplete'
+import { CATEGORIES } from 'shared/constants/constants'
 
 function ShelfForm({ onSave, shelves }) {
-  const { categories } = useBookShelf()
   return (
     <Formik
       initialValues={{ name: '', category: null }}
-      validationSchema={values => shiftValidationSchema(shelves, values)}
+      validationSchema={shiftValidationSchema(shelves)}
       onSubmit={onSave}
     >
       <Form noValidate>
@@ -27,10 +29,10 @@ function ShelfForm({ onSave, shelves }) {
             <ShelfNameFiled />
           </Grid>
           <Grid item xs={6}>
-            <FormikAutocomplete
+            <AutoComplete
               name="category"
               label="Select or create a new category"
-              options={categories}
+              options={CATEGORIES}
             />
           </Grid>
           <Grid item xs={2}>
@@ -42,6 +44,11 @@ function ShelfForm({ onSave, shelves }) {
       </Form>
     </Formik>
   )
+}
+
+ShelfForm.propTypes = {
+  onSave: func,
+  shelves: array,
 }
 
 export default ShelfForm

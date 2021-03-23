@@ -1,14 +1,13 @@
 import React from 'react'
-
 import Container from '@material-ui/core/Container'
-import Header from './shared/components/Header'
+import Header from 'shared/components/Header'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
-import useTheme from './shared/hooks/useTheme'
+import useTheme from 'shared/hooks/useTheme'
 import AppRoutes from './routes/AppRoutes'
-import Navigation from './shared/components/Navigation'
 import Grid from '@material-ui/core/Grid'
-import { BookShelfProvider } from './shared/context/book-shelf-context'
+import { BookShelfProvider } from 'shared/context/book-shelf-context'
+import Navigation from 'shared/components/Navigation'
 
 function App() {
   const { theme, isDarkTheme, switchTheme } = useTheme()

@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "alias": {
+          "shared": "./src/shared",
+          "routes": "./src/routes",
+          "modules": "./src/modules"
+        }
+      }
+    }
+  }
+}
