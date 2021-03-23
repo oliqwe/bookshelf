@@ -1,13 +1,13 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import BooksList from '../modules/Books/BooksList'
-import ShelvesDetails from '../modules/Shelves/ShelvesDetails'
+import BookList from 'modules/Books/BookList'
+import Shelves from 'modules/Shelves/index.js'
 
 const AppRoutes = () => {
   return (
     <Switch>
-      <Route path="/" component={BooksList} exact />
-      <Route path="/shelves" component={ShelvesDetails} exact />
+      <Route path="/" component={BookList} exact />
+      <Route path="/shelves" component={Shelves} exact />
     </Switch>
   )
 }

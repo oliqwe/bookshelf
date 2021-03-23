@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import SearchBar from '../../../shared/components/Search'
 import Grid from '@material-ui/core/Grid'
-import BookCard from './Book'
-import SidePanel from '../../../shared/components/SidePanel'
-import BookDetails from '../BookDetails'
-import { useAsync } from '../../../shared/hooks/useAsync'
-import { GOOGLE_BOOKS_API_URL } from '../../../shared/constants/constants'
-import Loading from '../../../shared/components/Loading'
+import BookDetails from 'shared/components/BookDetails'
+import { useAsync } from 'shared/hooks/useAsync'
+import { GOOGLE_BOOKS_API_URL } from 'shared/constants/constants'
+import SearchBar from 'shared/components/Search'
+import Loading from 'shared/components/Loading'
+import BookCard from 'shared/components/BookCard'
+import SidePanel from 'shared/components/SidePanel'
+import BookDetailsForm from './Form'
+import { useBookShelf } from 'shared/context/book-shelf-context'
 
-const BOOKS_PER_PAGE = 40
-
-function BooksList() {
+function BookList() {
+  const { updateShelf } = useBookShelf()
   const { status, data, get } = useAsync()
   const [searchString, setSearchString] = useState('javascript')
   const [selectedBookId, setSelectedBookId] = useState('')
 
   function handleSearch(value) {
     setSearchString(value)
+  }
+
+  function onSubmit(data) {
+    setSelectedBookId('')
+    console.log(data)
+    updateShelf(data)
   }
 
   const handleBookClick = bookInfo => () => {
@@ -30,7 +37,7 @@ function BooksList() {
   useEffect(() => {
     get(GOOGLE_BOOKS_API_URL + 'volumes?', {
       q: searchString,
-      maxResults: BOOKS_PER_PAGE,
+      maxResults: 40,
       projection: 'lite',
       printType: 'books',
     })
@@ -63,10 +70,14 @@ function BooksList() {
         onClose={handleCloseDrawer}
         width="45%"
       >
-        <BookDetails bookId={selectedBookId} />
+        <BookDetails bookId={selectedBookId}>
+          <BookDetails.Actions>
+            <BookDetailsForm onSubmit={onSubmit} />
+          </BookDetails.Actions>
+        </BookDetails>
       </SidePanel>
     </>
   )
 }
 
-export default BooksList
+export default BookList

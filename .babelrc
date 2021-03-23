@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "alias": {
+        "shared": "./src/shared",
+        "routes": "./src/routes",
+        "modules": "./src/modules"
+      }
+    }]
+  ]
+}

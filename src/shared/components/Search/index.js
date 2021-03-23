@@ -5,8 +5,10 @@ import PropTypes from 'prop-types'
 import Search from '@material-ui/icons/Search'
 import debounce from 'lodash/debounce'
 
-const SearchBar = ({ onChange, delay, defaultValue, ...rest }) => {
+const SearchBar = ({ onChange, delay = 200, defaultValue, ...rest }) => {
   const [value, setValue] = useState(() => defaultValue)
+  // TODO: fix props
+  // eslint-disable-next-line no-unused-vars
   const { InputProps, ...restProps } = rest
 
   const debouncedOnChange = useMemo(
@@ -45,10 +47,6 @@ const SearchBar = ({ onChange, delay, defaultValue, ...rest }) => {
       {...restProps}
     />
   )
-}
-
-SearchBar.defaultProps = {
-  delay: 200,
 }
 
 SearchBar.propTypes = {

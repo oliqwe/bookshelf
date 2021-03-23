@@ -1,4 +1,5 @@
 import { object, string } from 'yup'
+import { compareStrings } from '../../../shared/utils'
 
 export const shiftValidationSchema = shelves => {
   return object().shape({
@@ -7,22 +8,13 @@ export const shiftValidationSchema = shelves => {
         'uniqueNameAndCategory',
         'Shelf with this name category already exists',
         function(value) {
-          const category = this.parent.category
+          const category = this.parent?.category
+          if (!this.parent?.category) return true
 
-          // if category is not selected or there is a new category added
-          if (!category || category.inputValue) return true
-
-          const shelvesCategory = shelves.find(
-            shelf => shelf.categoryId === category.id,
-          )
-
-          if (!shelvesCategory) return true
-
-          return (
-            !shelvesCategory ||
-            !shelvesCategory.shelves.some(
-              ({ name }) => name.toLowerCase() === value.toLowerCase(),
-            )
+          return !shelves.some(
+            shelf =>
+              compareStrings(shelf.categoryId, category?.id) &&
+              compareStrings(shelf.name, value),
           )
         },
       )

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Logo from '../Logo'
 import ThemeSwitcher from '../ThemeSwitcher'
+import { bool, func } from 'prop-types'
 
 function Header({ isDarkTheme, switchTheme }) {
   return (
@@ -17,6 +18,11 @@ function Header({ isDarkTheme, switchTheme }) {
       </Grid>
     </Box>
   )
+}
+
+Header.propTypes = {
+  isDarkTheme: bool,
+  switchTheme: func,
 }
 
 export default Header
