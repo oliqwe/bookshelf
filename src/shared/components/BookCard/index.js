@@ -9,9 +9,13 @@ import Image from 'material-ui-image'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(1),
-    border: 'none',
-    minHeight: '280px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  cardAction: {
+    height: '100%',
   },
   imageContainer: {
     marginBottom: theme.spacing(1),
@@ -22,17 +26,26 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function BookCard({ bookInfo, bookId, onBookClick }) {
+function BookCard({ bookInfo, onBookClick }) {
   const classes = useStyles()
 
   return (
-    <Card variant="outlined">
-      <CardActionArea className={classes.root} onClick={onBookClick(bookId)}>
+    <Card variant="outlined" className={classes.root}>
+      <CardActionArea
+        onClick={onBookClick(bookInfo)}
+        className={classes.cardAction}
+      >
         <Image
-          src={bookInfo.imageLinks?.thumbnail}
-          disableSpinner
+          src={bookInfo.thumbnail || bookInfo.imageLinks?.thumbnail}
           color="rgba(255, 255, 255, 0)"
-          imageStyle={{ width: 'inherit', height: 'inherit' }}
+          imageStyle={{
+            width: '128px',
+            left: '50%',
+            top: '10px',
+            marginLeft: '-64px',
+            borderRadius: '4px',
+            height: 'inherit',
+          }}
         />
         <CardContent>
           <Typography gutterBottom variant="subtitle2" align="center">
@@ -45,7 +58,6 @@ function BookCard({ bookInfo, bookId, onBookClick }) {
 }
 
 BookCard.propTypes = {
-  bookId: PropTypes.string,
   bookInfo: PropTypes.object,
   onBookClick: PropTypes.func,
 }

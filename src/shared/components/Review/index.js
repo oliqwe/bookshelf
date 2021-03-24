@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { Rating } from '@material-ui/lab'
 
 function Review({ id, rating, note, onChange }) {
+  const [ratingInfo, setRatingInfo] = useState(0)
   const [comment, setComment] = useState('')
 
   function handleCommentChange(e) {
@@ -13,16 +14,21 @@ function Review({ id, rating, note, onChange }) {
   }
 
   function handleCommentUpdate() {
-    onChange({ comment })
+    onChange({ note: comment })
   }
 
   function handleRatingUpdate(e, rating) {
+    setRatingInfo(rating)
     onChange({ rating })
   }
 
   useEffect(() => {
     setComment(note)
   }, [note])
+
+  useEffect(() => {
+    setRatingInfo(rating)
+  }, [rating])
 
   return (
     <Grid
@@ -38,7 +44,7 @@ function Review({ id, rating, note, onChange }) {
       </Grid>
       <Grid item>
         <Rating
-          value={rating || 0}
+          value={ratingInfo}
           name={`rating-${id}`}
           onChange={handleRatingUpdate}
         />

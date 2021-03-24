@@ -8,7 +8,7 @@ import { bool, func } from 'prop-types'
 function Header({ isDarkTheme, switchTheme }) {
   return (
     <Box mt={2} mb={5}>
-      <Grid container justify="space-between" spacing={2}>
+      <Grid container justify="space-between" alignItems="center" spacing={2}>
         <Grid item>
           <Logo isDarkTheme={isDarkTheme} />
         </Grid>

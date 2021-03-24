@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes, { object, number, string, array } from 'prop-types'
+import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
-// import parse from 'html-react-parser'
 import Image from 'material-ui-image'
 
 function BookInfo({ info }) {
@@ -15,7 +14,11 @@ function BookInfo({ info }) {
             src={info?.imageLinks?.small}
             disableSpinner={true}
             color="rgba(255, 255, 255, 0)"
-            imageStyle={{ width: 'inherit', height: 'inherit' }}
+            imageStyle={{
+              width: 'inherit',
+              minHeight: 'inherit',
+              maxWidth: '320px',
+            }}
           />
         </Grid>
         <Grid
@@ -54,25 +57,18 @@ function BookInfo({ info }) {
           </Grid>
         </Grid>
       </Grid>
-      {/*<Grid item xs={12} style={{ position: 'relative' }}>*/}
-      {/*  <Typography variant="subtitle2" gutterBottom>*/}
-      {/*    Description*/}
-      {/*  </Typography>*/}
-      {/*  /!*<div style={{ width: '600px' }}>{parse(bookInfo.description)}</div>*!/*/}
-      {/*</Grid>*/}
     </Grid>
   )
 }
-// TODO: fix width
 
 BookInfo.propTypes = {
   info: PropTypes.shape({
-    language: string,
-    pageCount: number,
-    publisher: string,
-    author: string,
-    imageLinks: object,
-    authors: array,
+    language: PropTypes.string,
+    pageCount: PropTypes.number,
+    publisher: PropTypes.string,
+    author: PropTypes.string,
+    imageLinks: PropTypes.object,
+    authors: PropTypes.array,
   }),
 }
 

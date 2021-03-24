@@ -11,27 +11,26 @@ import BookDetailsForm from './Form'
 import { useBookShelf } from 'shared/context/book-shelf-context'
 
 function BookList() {
+  const [searchString, setSearchString] = useState('javascript')
+  const [selectedBook, setSelectedBook] = useState(null)
   const { updateShelf } = useBookShelf()
   const { status, data, get } = useAsync()
-  const [searchString, setSearchString] = useState('javascript')
-  const [selectedBookId, setSelectedBookId] = useState('')
 
   function handleSearch(value) {
     setSearchString(value)
   }
 
   function onSubmit(data) {
-    setSelectedBookId('')
-    console.log(data)
+    setSelectedBook(null)
     updateShelf(data)
   }
 
   const handleBookClick = bookInfo => () => {
-    setSelectedBookId(bookInfo)
+    setSelectedBook(bookInfo)
   }
 
   function handleCloseDrawer() {
-    setSelectedBookId('')
+    setSelectedBook(null)
   }
 
   useEffect(() => {
@@ -49,15 +48,20 @@ function BookList() {
         <Grid item xs={12}>
           <SearchBar onChange={handleSearch} defaultValue={searchString} />
         </Grid>
-        <Grid item container xs={12} spacing={2}>
+        <Grid item container xs={12} spacing={2} alignItems="stretch">
           {status === 'pending' && <Loading />}
           {data?.items?.length > 0 &&
             data.items.map(book => {
               return (
-                <Grid item xs={3} key={book.id}>
+                <Grid
+                  item
+                  xs={3}
+                  key={book.id}
+                  style={{ display: 'flex' }}
+                  data-testid={`book-container-${book.id}`}
+                >
                   <BookCard
-                    bookId={book.id}
-                    bookInfo={book.volumeInfo}
+                    bookInfo={{ id: book.id, ...book.volumeInfo }}
                     onBookClick={handleBookClick}
                   />
                 </Grid>
@@ -66,11 +70,11 @@ function BookList() {
         </Grid>
       </Grid>
       <SidePanel
-        isOpen={Boolean(selectedBookId)}
+        isOpen={Boolean(selectedBook)}
         onClose={handleCloseDrawer}
         width="45%"
       >
-        <BookDetails bookId={selectedBookId}>
+        <BookDetails bookId={selectedBook?.id}>
           <BookDetails.Actions>
             <BookDetailsForm onSubmit={onSubmit} />
           </BookDetails.Actions>

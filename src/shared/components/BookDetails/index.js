@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Actions({ children, ...props }) {
-  return <Box mt={1}>{React.cloneElement(children, { ...props })}</Box>
+  return <Box my={1}>{React.cloneElement(children, { ...props })}</Box>
 }
 
 function BookDetails({ bookId, children }) {
@@ -48,6 +48,9 @@ function BookDetails({ bookId, children }) {
               : null,
           )}
           <BookInfo info={bookInfo} />
+          {arrayChildren.map(child =>
+            child.type?.name !== 'Actions' ? child : null,
+          )}
         </>
       ) : null}
     </div>

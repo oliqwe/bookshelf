@@ -13,8 +13,12 @@ import { bookDetailsValidationSchema, getActiveCategory } from './form.utils'
 
 function BookDetailsForm({ bookInfo, bookId, onSubmit }) {
   function handleSubmit({ shelf }) {
-    const books = [...shelf.books, { ...bookInfo, id: bookId }]
-    onSubmit({ ...shelf, books })
+    const book = {
+      id: bookId,
+      title: bookInfo.title,
+      thumbnail: bookInfo.imageLinks?.thumbnail,
+    }
+    onSubmit({ ...shelf, books: [...shelf.books, book] })
   }
   const activeCategory = getActiveCategory(bookInfo?.categories, CATEGORIES)
 

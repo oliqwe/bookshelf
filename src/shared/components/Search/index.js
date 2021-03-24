@@ -4,11 +4,10 @@ import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import Search from '@material-ui/icons/Search'
 import debounce from 'lodash/debounce'
+import Box from '@material-ui/core/Box'
 
 const SearchBar = ({ onChange, delay = 200, defaultValue, ...rest }) => {
   const [value, setValue] = useState(() => defaultValue)
-  // TODO: fix props
-  // eslint-disable-next-line no-unused-vars
   const { InputProps, ...restProps } = rest
 
   const debouncedOnChange = useMemo(
@@ -25,27 +24,30 @@ const SearchBar = ({ onChange, delay = 200, defaultValue, ...rest }) => {
   }, [onChange, debouncedOnChange, value])
 
   return (
-    <TextField
-      type="search"
-      id="search-field"
-      data-testid="search-field"
-      placeholder="Search"
-      onChange={handleChange}
-      value={value || ''}
-      tabIndex="0"
-      variant="outlined"
-      fullWidth
-      InputProps={{
-        ...rest.InputProps,
-        startAdornment: (
-          <InputAdornment position="start">
-            <Search />
-          </InputAdornment>
-        ),
-      }}
-      margin="dense"
-      {...restProps}
-    />
+    <Box mr={2}>
+      <TextField
+        type="search"
+        id="search-field"
+        data-testid="search-field"
+        placeholder="Search"
+        onChange={handleChange}
+        value={value || ''}
+        tabIndex="0"
+        variant="outlined"
+        fullWidth
+        style={{ backgroundColor: 'white' }}
+        InputProps={{
+          ...rest.InputProps,
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+        margin="dense"
+        {...restProps}
+      />
+    </Box>
   )
 }
 

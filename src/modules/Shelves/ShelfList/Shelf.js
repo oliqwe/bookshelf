@@ -13,7 +13,7 @@ import BookDetails from 'shared/components/BookDetails'
 import Review from 'shared/components/Review'
 
 function Shelf({ shelf }) {
-  const [selectedBookId, setSelectedBookId] = useState('')
+  const [selectedBook, setSelectedBook] = useState(null)
   const [confirmationDialog, setConfirmationDialog] = useState(false)
   const { removeShelf, updateShelf } = useBookShelf()
 
@@ -31,11 +31,18 @@ function Shelf({ shelf }) {
   }
 
   const handleBookClick = bookInfo => () => {
-    setSelectedBookId(bookInfo)
+    setSelectedBook(bookInfo)
   }
 
   function handleCloseDrawer() {
-    setSelectedBookId('')
+    setSelectedBook(null)
+  }
+
+  function handleBookReviewUpdate(review) {
+    const books = shelf.books.map(book =>
+      book.id === selectedBook.id ? { ...book, ...review } : book,
+    )
+    updateShelf({ ...shelf, books })
   }
 
   function handleReviewUpdate(reviewInfo) {
@@ -43,7 +50,7 @@ function Shelf({ shelf }) {
   }
 
   return (
-    <Box m={2} pb={2}>
+    <Box my={2}>
       <Paper variant="outlined">
         <Box m={2}>
           <Grid
@@ -56,20 +63,15 @@ function Shelf({ shelf }) {
               <Typography variant="caption">Shelf Name</Typography>
               <Typography variant="h6">{shelf.name}</Typography>
             </Grid>
-            <Grid item>
+            <Grid item xs={1}>
               <IconButton aria-label="delete-shelf" onClick={handleShelfRemove}>
                 <DeleteIcon />
               </IconButton>
             </Grid>
-
             <Grid container spacing={2}>
               {shelf.books.map(book => (
                 <Grid item xs={3} key={book.id + shelf.id}>
-                  <BookCard
-                    bookInfo={book}
-                    bookId={book.id}
-                    onBookClick={handleBookClick}
-                  />
+                  <BookCard bookInfo={book} onBookClick={handleBookClick} />
                 </Grid>
               ))}
             </Grid>
@@ -78,7 +80,7 @@ function Shelf({ shelf }) {
             </Grid>
             <Review
               id={shelf.id}
-              note={shelf.comment}
+              note={shelf.note}
               rating={shelf.rating}
               onChange={handleReviewUpdate}
             />
@@ -94,11 +96,20 @@ function Shelf({ shelf }) {
         Are you sure you want to delete a shelf?
       </ConfirmationDialog>
       <SidePanel
-        isOpen={Boolean(selectedBookId)}
+        isOpen={Boolean(selectedBook)}
         onClose={handleCloseDrawer}
         width="45%"
       >
-        <BookDetails bookId={selectedBookId} />
+        {selectedBook?.id && (
+          <BookDetails bookId={selectedBook?.id}>
+            <Review
+              id={selectedBook.id}
+              note={selectedBook.note}
+              rating={selectedBook.rating}
+              onChange={handleBookReviewUpdate}
+            />
+          </BookDetails>
+        )}
       </SidePanel>
     </Box>
   )

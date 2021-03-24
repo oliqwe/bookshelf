@@ -32,7 +32,7 @@ function Shelves() {
             Add New Shelf
           </Button>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <ShelfList shelves={shelves} />
         </Grid>
       </Grid>
