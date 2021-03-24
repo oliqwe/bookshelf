@@ -48,8 +48,9 @@ function BookDetails({ bookId, children }) {
               : null,
           )}
           <BookInfo info={bookInfo} />
-          {arrayChildren.map(child =>
-            child.type?.name !== 'Actions' ? child : null,
+          {arrayChildren.filter(
+            child =>
+              !child.type || (child.type && child.type.name !== 'Actions'),
           )}
         </>
       ) : null}
