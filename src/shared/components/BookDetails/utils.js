@@ -1,18 +1,21 @@
 import React from 'react'
 
-export function renderComponent(children, name, props) {
-  return (children || []).map(child =>
-    child.type && (child.type.displayName === name || child.type.name === name)
-      ? React.cloneElement(child, { ...props, ...child.props })
-      : null,
+export function renderComponent(name, children, props) {
+  console.log('here')
+  const child = children.find(
+    child =>
+      child.type &&
+      (child.type.displayName === name || child.type.name === name),
   )
+  console.log(child)
+  return child ? React.cloneElement(child, { ...props, ...child.props }) : null
 }
 
-export function renderAllBut(children, name) {
+export function renderAllBut(components, children) {
   return (children || []).filter(
     child =>
       !child.type ||
-      ((child.type && child.type.displayName !== name) ||
-        child.type.name !== name),
+      (child.type &&
+        !components.includes(child.type.displayName || child.type.name)),
   )
 }
