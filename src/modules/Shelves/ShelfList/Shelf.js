@@ -76,15 +76,19 @@ function Shelf({ shelf }) {
               onBookClick={handleBookClick}
               onBookRemoveClick={handleBookRemoveClick}
             />
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-            <Review
-              id={shelf.id}
-              note={shelf.note}
-              rating={shelf.rating}
-              onChange={handleReviewUpdate}
-            />
+            {shelf.books.length > 0 && (
+              <>
+                <Grid item xs={12}>
+                  <Divider />
+                </Grid>
+                <Review
+                  id={shelf.id}
+                  note={shelf.note}
+                  rating={shelf.rating}
+                  onChange={handleReviewUpdate}
+                />
+              </>
+            )}
           </Grid>
         </Box>
       </Paper>
