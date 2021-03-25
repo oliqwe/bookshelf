@@ -1,33 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import Image from 'material-ui-image'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton } from '@material-ui/core'
+import useBookCardStyles from './BookCard.styles'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    width: '100%',
-  },
-  cardAction: {
-    height: '100%',
-  },
-  imageContainer: {
-    marginBottom: theme.spacing(1),
-  },
-  image: {
-    display: 'block',
-    margin: '0 auto',
-  },
-}))
-
-function BookCard({ bookInfo, onBookClick }) {
-  const classes = useStyles()
+function BookCard({ bookInfo, onBookClick, onBookRemoveClick }) {
+  const classes = useBookCardStyles()
 
   return (
     <Card variant="outlined" className={classes.root}>
@@ -53,6 +36,16 @@ function BookCard({ bookInfo, onBookClick }) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      {onBookRemoveClick && (
+        <div
+          className={`${classes.removeIcon} hidden-button`}
+          onClick={onBookRemoveClick(bookInfo.id)}
+        >
+          <IconButton aria-label="delete" size="small">
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </div>
+      )}
     </Card>
   )
 }

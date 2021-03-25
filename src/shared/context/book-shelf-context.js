@@ -47,7 +47,6 @@ function BookShelfProvider({ children }) {
     >
       {children}
       <Snackbar
-        key="some"
         open={state.isNotificationOpen}
         onClose={handleSnackBarClose}
         ClickAwayListenerProps={{
@@ -56,7 +55,7 @@ function BookShelfProvider({ children }) {
         autoHideDuration={2000}
       >
         <Alert variant="filled" severity="success">
-          Successfully saved !!
+          Successful !!!
         </Alert>
       </Snackbar>
     </BookShelfContext.Provider>

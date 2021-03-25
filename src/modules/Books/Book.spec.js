@@ -1,19 +1,18 @@
-import userEvent from '@testing-library/user-event'
-
 global.fetch = require('node-fetch')
 
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { TestProvider } from 'shared/utils/testing-library.helper'
-import BookList from './BookList'
+import Book from './Book'
 import nock from 'nock'
 import { mockBook, mockBooks } from 'shared/mock'
 import { waitFor } from '@testing-library/dom'
+import userEvent from '@testing-library/user-event'
 
 async function renderComponent() {
   render(
     <TestProvider currentLocation={'/'}>
-      <BookList />
+      <Book />
     </TestProvider>,
   )
   await screen.findAllByTestId(/book-container/i)
@@ -64,6 +63,7 @@ describe('<BookList>', () => {
       expect(
         screen.getByRole('heading', { name: /javascript patterns/i }),
       ).toBeVisible()
+
       expect(
         screen.getByRole('button', { name: /add to shelf/i }),
       ).toBeVisible()

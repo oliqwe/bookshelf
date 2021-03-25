@@ -5,6 +5,7 @@ import { Button, Grid } from '@material-ui/core'
 import ShelfForm from './Form'
 import SidePanel from 'shared/components/SidePanel'
 import { useBookShelf } from 'shared/context/book-shelf-context'
+import { ConfirmProvider } from 'material-ui-confirm'
 
 function Shelves() {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,7 +21,7 @@ function Shelves() {
   }
 
   return (
-    <>
+    <ConfirmProvider>
       <Grid container spacing={2}>
         <Grid container item justify="flex-end">
           <Button
@@ -39,7 +40,7 @@ function Shelves() {
       <SidePanel isOpen={isOpen} onClose={handleToggleSidePanel} width="40%">
         <ShelfForm onSave={handleAddNewShelf} shelves={shelves} />
       </SidePanel>
-    </>
+    </ConfirmProvider>
   )
 }
 

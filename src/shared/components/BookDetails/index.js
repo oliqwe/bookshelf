@@ -7,6 +7,7 @@ import BookInfo from './BookInfo'
 import Loading from 'shared/components/Loading'
 import BookDetailsHeader from './BookDetailsHear'
 import Box from '@material-ui/core/Box'
+import { renderAllBut, renderComponent } from './utils'
 
 const useStyles = makeStyles(theme => ({
   bookDetailsContainer: {
@@ -19,12 +20,17 @@ function Actions({ children, ...props }) {
   return <Box my={1}>{React.cloneElement(children, { ...props })}</Box>
 }
 
+function Footer({ children }) {
+  return children
+}
+
 function BookDetails({ bookId, children }) {
   const { data, get, status } = useAsync()
   const bookInfo = data?.volumeInfo
   const classes = useStyles()
-
   const arrayChildren = React.Children.toArray(children)
+  //
+  // console.log(children)
 
   useEffect(() => {
     if (bookId) {
@@ -42,16 +48,9 @@ function BookDetails({ bookId, children }) {
             subtitle={bookInfo.subtitle}
             averageRating={bookInfo.averageRating}
           />
-          {arrayChildren.map(child =>
-            child.type?.name === 'Actions'
-              ? React.cloneElement(child, { bookId, bookInfo, ...child.props })
-              : null,
-          )}
+          {renderComponent('Actions', arrayChildren, { bookId, bookInfo })}
           <BookInfo info={bookInfo} />
-          {arrayChildren.filter(
-            child =>
-              !child.type || (child.type && child.type.name !== 'Actions'),
-          )}
+          {renderAllBut(['Actions'], arrayChildren)}
         </>
       ) : null}
     </div>
@@ -59,6 +58,7 @@ function BookDetails({ bookId, children }) {
 }
 
 BookDetails.Actions = Actions
+BookDetails.Footer = Footer
 
 BookDetails.propTypes = {
   bookId: PropTypes.string,

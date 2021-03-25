@@ -14,12 +14,18 @@ function Review({ id, rating, note, onChange }) {
   }
 
   function handleCommentUpdate() {
+    if (comment === note) {
+      return
+    }
     onChange({ note: comment })
   }
 
-  function handleRatingUpdate(e, rating) {
-    setRatingInfo(rating)
-    onChange({ rating })
+  function handleRatingUpdate(e, newRating) {
+    if (newRating === ratingInfo) {
+      return
+    }
+    setRatingInfo(newRating)
+    onChange({ rating: newRating })
   }
 
   useEffect(() => {
@@ -44,7 +50,7 @@ function Review({ id, rating, note, onChange }) {
       </Grid>
       <Grid item>
         <Rating
-          value={ratingInfo}
+          value={ratingInfo || 0}
           name={`rating-${id}`}
           onChange={handleRatingUpdate}
         />

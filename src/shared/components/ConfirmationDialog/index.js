@@ -17,7 +17,6 @@ function ConfirmationDialog({ title, children, open, setOpen, onConfirm }) {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button
-          color="primary"
           onClick={() => {
             setOpen(false)
             onConfirm()
@@ -25,9 +24,7 @@ function ConfirmationDialog({ title, children, open, setOpen, onConfirm }) {
         >
           Confirm
         </Button>
-        <Button onClick={() => setOpen(false)} color="secondary">
-          Cancel
-        </Button>
+        <Button onClick={() => setOpen(false)}>Cancel</Button>
       </DialogActions>
     </Dialog>
   )

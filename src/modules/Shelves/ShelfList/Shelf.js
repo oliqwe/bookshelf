@@ -5,30 +5,17 @@ import { Divider, Grid, IconButton, Paper } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import DeleteIcon from '@material-ui/icons/Delete'
-import BookCard from 'shared/components/BookCard'
 import { useBookShelf } from 'shared/context/book-shelf-context'
-import ConfirmationDialog from 'shared/components/ConfirmationDialog'
 import SidePanel from 'shared/components/SidePanel'
 import BookDetails from 'shared/components/BookDetails'
 import Review from 'shared/components/Review'
+import BookList from 'shared/components/BookList'
+import { useConfirm } from 'material-ui-confirm'
 
 function Shelf({ shelf }) {
   const [selectedBook, setSelectedBook] = useState(null)
-  const [confirmationDialog, setConfirmationDialog] = useState(false)
   const { removeShelf, updateShelf } = useBookShelf()
-
-  function handleShelfRemove() {
-    setConfirmationDialog(true)
-  }
-
-  function onShelfRemoveConfirm() {
-    toggleConfirmationDialog()
-    removeShelf(shelf.id)
-  }
-
-  function toggleConfirmationDialog() {
-    setConfirmationDialog(state => !state)
-  }
+  const confirm = useConfirm()
 
   const handleBookClick = bookInfo => () => {
     setSelectedBook(bookInfo)
@@ -46,7 +33,23 @@ function Shelf({ shelf }) {
   }
 
   function handleReviewUpdate(reviewInfo) {
+    console.log(reviewInfo)
     updateShelf({ ...shelf, ...reviewInfo })
+  }
+
+  function handleShelfRemove() {
+    confirm({
+      description: `Are you sure you want to delete ${shelf.name}`,
+    }).then(() => removeShelf(shelf.id))
+  }
+
+  const handleBookRemoveClick = bookId => () => {
+    confirm({
+      description: `Are you sure you want to delete a book from the library`,
+    }).then(() => {
+      const books = shelf.books.filter(book => book.id !== bookId)
+      updateShelf({ ...shelf, books })
+    })
   }
 
   return (
@@ -68,13 +71,11 @@ function Shelf({ shelf }) {
                 <DeleteIcon />
               </IconButton>
             </Grid>
-            <Grid container spacing={2}>
-              {shelf.books.map(book => (
-                <Grid item xs={3} key={book.id + shelf.id}>
-                  <BookCard bookInfo={book} onBookClick={handleBookClick} />
-                </Grid>
-              ))}
-            </Grid>
+            <BookList
+              books={shelf.books}
+              onBookClick={handleBookClick}
+              onBookRemoveClick={handleBookRemoveClick}
+            />
             <Grid item xs={12}>
               <Divider />
             </Grid>
@@ -87,14 +88,6 @@ function Shelf({ shelf }) {
           </Grid>
         </Box>
       </Paper>
-      <ConfirmationDialog
-        title="Delete a shelf?"
-        open={confirmationDialog}
-        setOpen={toggleConfirmationDialog}
-        onConfirm={onShelfRemoveConfirm}
-      >
-        Are you sure you want to delete a shelf?
-      </ConfirmationDialog>
       <SidePanel
         isOpen={Boolean(selectedBook)}
         onClose={handleCloseDrawer}

@@ -9,12 +9,12 @@ function ThemeSwitcher({ isDarkTheme, switchTheme }) {
   return (
     <div>
       {isDarkTheme ? (
-        <IconButton aria-label="light-theme">
-          <WbSunnyRoundedIcon onClick={switchTheme} />
+        <IconButton aria-label="light-theme" onClick={switchTheme}>
+          <WbSunnyRoundedIcon />
         </IconButton>
       ) : (
-        <IconButton aria-label="dark-theme">
-          <NightsStayRoundedIcon onClick={switchTheme} />
+        <IconButton aria-label="dark-theme" onClick={switchTheme}>
+          <NightsStayRoundedIcon />
         </IconButton>
       )}
     </div>

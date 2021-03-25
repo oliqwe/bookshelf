@@ -1,6 +1,5 @@
 import React from 'react'
-import { string, object, func } from 'prop-types'
-
+import PropTypes from 'prop-types'
 import { Form, Formik } from 'formik'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -63,9 +62,9 @@ function BookDetailsForm({ bookInfo, bookId, onSubmit }) {
 }
 
 BookDetailsForm.propTypes = {
-  bookInfo: object,
-  bookId: string,
-  onSubmit: func,
+  bookInfo: PropTypes.object,
+  bookId: PropTypes.string,
+  onSubmit: PropTypes.func,
 }
 
 export default BookDetailsForm

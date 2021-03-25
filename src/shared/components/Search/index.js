@@ -35,7 +35,6 @@ const SearchBar = ({ onChange, delay = 200, defaultValue, ...rest }) => {
         tabIndex="0"
         variant="outlined"
         fullWidth
-        style={{ backgroundColor: 'white' }}
         InputProps={{
           ...rest.InputProps,
           startAdornment: (
