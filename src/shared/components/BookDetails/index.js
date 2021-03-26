@@ -56,6 +56,7 @@ BookDetails.Actions = Actions
 BookDetails.propTypes = {
   bookId: PropTypes.string,
   children: PropTypes.any,
+  __TYPE: PropTypes.string,
 }
 
 BookDetails.defaultProps = {
