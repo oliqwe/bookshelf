@@ -12,9 +12,10 @@ function useTheme() {
     const theme = getLocalStorageValue('theme')
 
     if (!theme) {
+      const mode = prefersDarkMode ? THEME.DARK : THEME.LIGHT
       // if there so no theme in local storage we check color scheme
-      setLocalStorageValue('theme', prefersDarkMode ? THEME.DARK : THEME.LIGHT)
-      return prefersDarkMode
+      setLocalStorageValue('theme', mode)
+      return mode
     }
     return theme
   })
