@@ -9,6 +9,7 @@ function ShelfNameFiled() {
     <TextField
       required
       type="text"
+      id="name"
       name="name"
       label="Name"
       size="small"

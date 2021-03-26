@@ -55,7 +55,7 @@ function BookShelfProvider({ children }) {
         autoHideDuration={2000}
       >
         <Alert variant="filled" severity="success">
-          Successful !!!
+          Operation succeeded
         </Alert>
       </Snackbar>
     </BookShelfContext.Provider>

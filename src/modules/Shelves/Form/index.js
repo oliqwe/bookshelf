@@ -1,7 +1,7 @@
 import React from 'react'
 import { array, func } from 'prop-types'
 
-import { Formik, Form } from 'formik'
+import { Form, Formik } from 'formik'
 import { Button, Divider, Grid, Typography } from '@material-ui/core'
 
 import { shiftValidationSchema } from './shelf-form.utils'
@@ -30,8 +30,9 @@ function ShelfForm({ onSave, shelves }) {
           </Grid>
           <Grid item xs={6}>
             <AutoComplete
+              id="category"
               name="category"
-              label="Select or create a new category"
+              label="Select or create"
               options={CATEGORIES}
             />
           </Grid>

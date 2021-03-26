@@ -1,5 +1,5 @@
 import { object } from 'yup'
-import { compareStrings } from '../../../shared/utils'
+import { compareStrings } from 'shared/utils'
 
 /** Get active category from  Google response ["Computers / Programming Languages / JavaScript", "Computers / Web / Web Programming"]
  * @param  {[String]} googleCategories

@@ -1,5 +1,5 @@
 import { object, string } from 'yup'
-import { compareStrings } from '../../../shared/utils'
+import { compareStrings } from 'shared/utils'
 
 export const shiftValidationSchema = shelves => {
   return object().shape({

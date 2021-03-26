@@ -18,21 +18,17 @@ async function renderComponent() {
   await screen.findAllByTestId(/book-container/i)
 }
 
-const getBooks = () => {
-  nock('https://www.googleapis.com')
-    .get('/books/v1/volumes')
-    .query({
-      q: 'javascript',
-      maxResults: 40,
-      projection: 'lite',
-      printType: 'books',
-    })
-    .reply(200, mockBooks)
-}
-
 describe('<BookList>', () => {
   beforeEach(() => {
-    getBooks()
+    nock('https://www.googleapis.com')
+      .get('/books/v1/volumes')
+      .query({
+        q: 'javascript',
+        maxResults: 40,
+        projection: 'lite',
+        printType: 'books',
+      })
+      .reply(200, mockBooks)
   })
 
   it('should render list page successfully', async () => {
@@ -73,12 +69,10 @@ describe('<BookList>', () => {
       })
     })
 
-    it('should disable category select if there is one provided in the response', async () => {
+    it('should disable category autocomplete if book has already a category assigned', async () => {
       const categorySelect = await screen.findByLabelText(/select a category/i)
 
       userEvent.click(screen.getByLabelText(/select a shelf/i))
-
-      screen.debug(document, 100000000000)
 
       expect(categorySelect).toBeDisabled()
       expect(screen.getByText(/js books/i)).toBeVisible()

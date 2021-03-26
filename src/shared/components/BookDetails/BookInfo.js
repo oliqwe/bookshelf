@@ -6,6 +6,7 @@ import Chip from '@material-ui/core/Chip'
 import Image from 'material-ui-image'
 
 function BookInfo({ info }) {
+  console.log(info)
   return (
     <Grid container>
       <Grid container item>
@@ -49,6 +50,21 @@ function BookInfo({ info }) {
           <Grid item xs={8}>
             <Typography variant="caption">{info?.publisher}</Typography>
           </Grid>
+
+          <Grid item xs={4}>
+            <Typography variant="caption">Print Type</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography variant="caption">{info?.printType}</Typography>
+          </Grid>
+
+          <Grid item xs={4}>
+            <Typography variant="caption">Publish Date</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography variant="caption">{info?.publishedDate}</Typography>
+          </Grid>
+
           <Grid item xs={4}>
             <Typography variant="caption">Author</Typography>
           </Grid>

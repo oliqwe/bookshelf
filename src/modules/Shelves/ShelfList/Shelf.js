@@ -53,7 +53,7 @@ function Shelf({ shelf }) {
   }
 
   return (
-    <Box my={2}>
+    <Box my={2} data-testid={`shelf-${shelf.id}`}>
       <Paper variant="outlined">
         <Box m={2}>
           <Grid

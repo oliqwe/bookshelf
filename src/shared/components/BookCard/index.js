@@ -13,7 +13,11 @@ function BookCard({ bookInfo, onBookClick, onBookRemoveClick }) {
   const classes = useBookCardStyles()
 
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card
+      variant="outlined"
+      className={classes.root}
+      data-testid={`book-card-${bookInfo.id}`}
+    >
       <CardActionArea
         onClick={onBookClick(bookInfo)}
         className={classes.cardAction}
@@ -41,7 +45,11 @@ function BookCard({ bookInfo, onBookClick, onBookRemoveClick }) {
           className={`${classes.removeIcon} hidden-button`}
           onClick={onBookRemoveClick(bookInfo.id)}
         >
-          <IconButton aria-label="delete" size="small">
+          <IconButton
+            aria-label="delete"
+            size="small"
+            data-testid={`delete-book-${bookInfo.id}`}
+          >
             <DeleteIcon fontSize="small" />
           </IconButton>
         </div>
