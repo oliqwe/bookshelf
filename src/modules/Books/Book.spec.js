@@ -47,34 +47,41 @@ describe('<BookList>', () => {
     ).toBeVisible()
   })
 
-  it('on card click should fetch book details in a side panel', async () => {
-    const getBookDetailsCall = nock('https://www.googleapis.com')
-      .get(`/books/v1/volumes/${mockBooks.items[0].id}`)
-      .reply(200, mockBook)
+  describe('Book Details', () => {
+    beforeEach(async () => {
+      await renderComponent()
+      userEvent.click(screen.getByText(/javascript patterns/i))
 
-    await renderComponent()
+      nock('https://www.googleapis.com')
+        .get(`/books/v1/volumes/${mockBooks.items[0].id}`)
+        .reply(200, mockBook)
+    })
 
-    userEvent.click(
-      screen.getByRole('button', { name: /javascript patterns/i }),
-    )
+    it('on card click should fetch book details and display in a side panel', async () => {
+      await waitFor(() => {
+        expect(
+          screen.getByRole('heading', { name: /javascript patterns/i }),
+        ).toBeVisible()
+        expect(screen.getByText(/language:/i)).toBeVisible()
+        expect(screen.getByText(/stoyan stefanov/i)).toBeVisible()
+        expect(
+          screen.getByRole('textbox', { name: /select a shelf/i }),
+        ).toBeVisible()
+        expect(
+          screen.getByRole('textbox', { name: /select a category/i }),
+        ).toBeVisible()
+      })
+    })
 
-    await waitFor(() => {
-      expect(getBookDetailsCall.isDone()).toBe(true)
-      expect(
-        screen.getByRole('heading', { name: /javascript patterns/i }),
-      ).toBeVisible()
+    it('should disable category select if there is one provided in the response', async () => {
+      const categorySelect = await screen.findByLabelText(/select a category/i)
 
-      expect(
-        screen.getByRole('button', { name: /add to shelf/i }),
-      ).toBeVisible()
-      expect(screen.getByText(/language:/i)).toBeVisible()
-      expect(screen.getByText(/stoyan stefanov/i)).toBeVisible()
-      expect(
-        screen.getByRole('textbox', { name: /select a shelf/i }),
-      ).toBeVisible()
-      expect(
-        screen.getByRole('textbox', { name: /select a category/i }),
-      ).toBeVisible()
+      userEvent.click(screen.getByLabelText(/select a shelf/i))
+
+      screen.debug(document, 100000000000)
+
+      expect(categorySelect).toBeDisabled()
+      expect(screen.getByText(/js books/i)).toBeVisible()
     })
   })
 })

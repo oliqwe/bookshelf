@@ -29,15 +29,7 @@ export const shelvesMock = [
   {
     id: '1',
     categoryId: '9',
-    name: 'JS goodies',
-    rating: 2,
-    note: 'Javascript books',
-    books: computerMock,
-  },
-  {
-    id: '2',
-    categoryId: '9',
-    name: 'More JS goodies ',
+    name: 'JS books',
     rating: 2,
     note: 'Javascript books',
     books: computerMock,
