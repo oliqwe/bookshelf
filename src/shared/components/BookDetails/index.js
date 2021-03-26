@@ -20,10 +20,6 @@ function Actions({ children, ...props }) {
   return <Box my={1}>{React.cloneElement(children, { ...props })}</Box>
 }
 
-function Footer({ children }) {
-  return children
-}
-
 function BookDetails({ bookId, children }) {
   const { data, get, status } = useAsync()
   const bookInfo = data?.volumeInfo
@@ -56,11 +52,14 @@ function BookDetails({ bookId, children }) {
 }
 
 BookDetails.Actions = Actions
-BookDetails.Footer = Footer
 
 BookDetails.propTypes = {
   bookId: PropTypes.string,
   children: PropTypes.any,
 }
+
+BookDetails.defaultProps = {
+  __TYPE: 'Actions',
+};
 
 export default BookDetails
