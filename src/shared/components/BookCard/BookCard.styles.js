@@ -36,7 +36,6 @@ const useBookCardStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     border: '1px solid #eee',
-    background: 'white',
   },
 }))
 

@@ -33,7 +33,6 @@ function Shelf({ shelf }) {
   }
 
   function handleReviewUpdate(reviewInfo) {
-    console.log(reviewInfo)
     updateShelf({ ...shelf, ...reviewInfo })
   }
 

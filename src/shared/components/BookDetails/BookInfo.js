@@ -6,7 +6,6 @@ import Chip from '@material-ui/core/Chip'
 import Image from 'material-ui-image'
 
 function BookInfo({ info }) {
-  console.log(info)
   return (
     <Grid container>
       <Grid container item>
