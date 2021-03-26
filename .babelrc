@@ -1,11 +1,15 @@
 {
   "plugins": [
-    ["module-resolver", {
-      "alias": {
-        "shared": "./src/shared",
-        "routes": "./src/routes",
-        "modules": "./src/modules"
+    "add-react-displayname",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "shared": "./src/shared",
+          "routes": "./src/routes",
+          "modules": "./src/modules"
+        }
       }
-    }]
+    ]
   ]
 }

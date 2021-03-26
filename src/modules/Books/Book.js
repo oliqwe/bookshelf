@@ -56,7 +56,7 @@ function Book() {
       <SidePanel
         isOpen={Boolean(selectedBook)}
         onClose={handleCloseDrawer}
-        width="45%"
+        width="50%"
       >
         <BookDetails bookId={selectedBook?.id}>
           <BookDetails.Actions>

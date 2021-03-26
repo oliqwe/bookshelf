@@ -52,15 +52,11 @@ function BookDetails({ bookId, children }) {
 }
 
 BookDetails.Actions = Actions
+Actions.displayName = 'Actions'
 
 BookDetails.propTypes = {
   bookId: PropTypes.string,
   children: PropTypes.any,
-  __TYPE: PropTypes.string,
 }
-
-BookDetails.defaultProps = {
-  __TYPE: 'Actions',
-};
 
 export default BookDetails

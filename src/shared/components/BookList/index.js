@@ -6,7 +6,8 @@ import BookCard from '../BookCard'
 function BookList({ books, onBookClick, onBookRemoveClick }) {
   return (
     <Grid item container xs={12} spacing={2} alignItems="stretch">
-      {books.length > 0 &&
+      {books &&
+        books.length > 0 &&
         books.map(book => {
           const bookProps = book.hasOwnProperty('volumeInfo')
             ? book.volumeInfo
